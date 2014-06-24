@@ -29,24 +29,26 @@ var client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 app.post('/sms', function(req, res){
 	Quote.random(function(err, quote){
-		console.log(req.body);
+		
 
 		var msg = new Message({
-	        sid: req.param('MessageSid'),
 	        type: 'text',
-	        message: req.param('Body'),
-	        city: req.param('FromCity'),
-	        state: req.param('FromState'),
-	        country: req.param('FromCountry'),
+	        message: req.body.Body,
+	        city: req.body.FromCity,
+	        state: req.body.FromState:,
+	        country: req.body.FromCountry,
+	        number: req.body.From;
 	        response: quote['_id']
 	    });
+
+		console.log(msg);
+
 	    msg.save(function(err, model) {
 	        var twiml = new twilio.TwimlResponse().message(quote.text);
 	        res.send(twiml);
 	    });
 	});	
 });
-
 
 
 var port = Number(process.env.PORT || 5000);

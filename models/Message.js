@@ -5,8 +5,7 @@
 var mongoose = require('mongoose');
 
 var Message = new mongoose.Schema({
-	sid: String,
-    number: Number,
+    number: String,
     type: {type:String, enum:['call', 'text']},
     recordingUrl: String,
     recordingDuration: Number,
