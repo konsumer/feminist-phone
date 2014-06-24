@@ -30,6 +30,8 @@ TWILIO_NUMBER=5034271565
 
 If you are using heroku, create the initial file, like this: `heroku config:pull --overwrite --interactive`
 
+To push up your twilio config vars from `.env`, use `heroku config:push --overwrite --interactive`
+
 
 # development
 
