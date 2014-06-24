@@ -40,7 +40,7 @@ app.post('/sms', function(req, res){
 	    });
 	    msg.save(function(err, model) {
 	        var twiml = new twilio.TwimlResponse().message(quote.text);
-	        response.send(twiml);
+	        res.send(twiml);
 	    });
 	});	
 });
