@@ -45,7 +45,7 @@
 		</div>
 	</div>
 
-	<div ng-if="texts.length" class="container">
+	<div ng-show="texts.length" class="container">
 		Here are the texts I have received, lately:
 		<ul>
 			<li ng-repeat="call in texts" class="call">
@@ -55,7 +55,7 @@
 		</ul>
 	</div>
 
-	<div ng-if="calls.length" class="container">
+	<div ng-show="calls.length" class="container">
 		Here are the calls I have received, lately:
 		<ul>
 			<li ng-repeat="call in calls" class="call">
