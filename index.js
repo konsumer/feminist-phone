@@ -108,7 +108,7 @@ app.post('/voice', function(req, res){
 			}
 			
 			res.send(new twilio.TwimlResponse()
-		    	.say(quote.text)
+		    	.say(quote.text, {voice:'woman'})
 		        .record({
 		            maxLength:120,
 		            action:'/recording/' + msg['_id']
@@ -131,7 +131,7 @@ app.post('/recording/:voice', function(req, res){
 		}
 
 		res.send(new twilio.TwimlResponse()
-			.say('goodbye.')
+			.say('goodbye.', {voice:'woman'})
         	.hangup()
         	.toString()
         );
@@ -140,6 +140,7 @@ app.post('/recording/:voice', function(req, res){
 
 // get a list of quotes, with number info removed
 // TODO: fit this better to a per-conversation style
+// TODO: limit conversations, so it's just "newest"
 app.get('/calls', function(req,res){
 	Message.find({}, function(err, results){
 		if(err){
