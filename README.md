@@ -2,6 +2,8 @@ I really love [Feminist Phone Intervention](http://feminist-phone-intervention.t
 
 You can call my version at (503) 427-1565. You can see who has called/texted lately, [here](http://feminist-phone.herokuapp.com/).
 
+You can also use this as a base for your own simple express/AngularJS/twilio telephony app.
+
 # support
 
 Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](https://blockchain.info/address/125ZumCPPxokALadXZZTiVWmVia1KizSFv) bitcoin address. Twilio is pretty cheap, but when more calls roll in, it will  get more expensive. I currently spend about $20 a month of my own cash.
