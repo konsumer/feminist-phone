@@ -35,7 +35,7 @@ app.post('/sms', function(req, res){
 	        type: 'text',
 	        message: req.body.Body,
 	        city: req.body.FromCity,
-	        state: req.body.FromState:,
+	        state: req.body.FromState,
 	        country: req.body.FromCountry,
 	        number: req.body.From,
 	        response: quote['_id']
