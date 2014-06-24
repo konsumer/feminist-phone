@@ -13,6 +13,11 @@ var models = require('./models'),
 	bodyParser = require('body-parser'),
 	app = express();
 
+// configure basic webserver
+app.use(logger('dev'));
+app.use(bodyParser({extended: true}));
+
+
 // fill-in records, if there are none, with some defaults
 Quote.count(function(err, count) {
 	if (!count){
@@ -35,13 +40,6 @@ Quote.count(function(err, count) {
 		});
 	}
 });
-
-
-
-// configure basic webserver
-app.use(logger('dev'));
-app.use(bodyParser({extended: true}));
-
 
 // check configuration
 if (!process.env.TWILIO_SID || !process.env.TWILIO_TOKEN) {
