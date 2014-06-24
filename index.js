@@ -33,7 +33,7 @@ app.post('/sms', function(req, res){
 
 		var msg = new Message({
 	        type: 'text',
-	        message: req.body.Body,
+	        textMessage: req.body.Body,
 	        city: req.body.FromCity,
 	        state: req.body.FromState,
 	        country: req.body.FromCountry,
