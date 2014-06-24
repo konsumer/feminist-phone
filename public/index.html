@@ -1,0 +1,134 @@
+<html>
+<head>
+	<title>Feminist Phone</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+	.call{
+		padding:4px;
+	}
+	.callinfo {
+		font-size:10px;
+	}
+	.text {
+		font-size: 12px;
+		padding:4px;
+	}
+	tinyplayer {
+		display:inline-block;
+	}
+	tinyplayer .play, tinyplayer .pause, .text {
+		background: #ddd;
+	}
+
+	tinyplayer .play, tinyplayer .pause {
+		border: 1px solid #000;
+		border-radius: 50%;
+		width: 20px;
+		height: 20px;
+		line-height: 17px;
+		text-align:center;
+	}
+
+	</style>
+</head>
+<body ng-app="app" ng-controller="FeministPhone">
+	<div class="jumbotron">
+		<div class="container">
+			<h1>&#9792; Feminist Phone</h1>
+			<h2><a href="tel:+15034271565"><i class="glyphicon glyphicon-phone-alt"></i> (503) 427-1565</a></h2>
+		</div>
+	</div>
+
+	<div ng-if="texts.length" class="container">
+		Here are the texts I have received, lately:
+		<ul>
+			<li ng-repeat="call in texts" class="call">
+				<span class="text">{{call.textMessage}}</span> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span><br>
+				<span class="response">{{quotes[call.response]}}</span>
+			</li>
+		</ul>
+	</div>
+
+	<div ng-if="calls.length" class="container">
+		Here are the calls I have received, lately:
+		<ul>
+			<li ng-repeat="call in calls" class="call">
+				<tinyplayer src="call.recordingUrl"></tinyplayer> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span><br>
+				<span class="response">{{quotes[call.response]}}</span>
+			</li>
+		</ul>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
+	<script>
+		angular.module('app',[])
+		
+		.controller('FeministPhone', function ($scope, $http) {
+			$scope.calls = [];
+			$scope.texts = [];
+
+			// get available quotes
+			$http.get('/quotes')
+				.success(function(records){
+					$scope.quotes={};
+					records.forEach(function(record){
+						$scope.quotes[record['_id']] = record.text + ' - ' + record.author;
+					});
+				});
+
+			// get list of calls
+			$http.get('/calls')
+				.success(function(records){
+					records.forEach(function(record){
+						$scope[record.type + 's'].push(record);
+					});
+				});
+		})
+		
+		/**
+		 * small HTML5 audio player, 1 allowed to play per scope
+		 * Usage: <tinyplayer src="'URL'"></tinyplayer>
+		 */
+		.directive('tinyplayer', function(){
+			return {
+				restrict: 'E',
+				scope: {src:'=src'},
+				
+				template: '<div ng-click="playpause()" class="tinyplayer"><span class="pause glyphicon glyphicon-pause" ng-show="playing"></span><span class="play glyphicon glyphicon-play" ng-show="!playing"></span></div>',
+				
+				controller: function($scope, $rootScope){
+					//  todo: polyfill for older browsers
+					var audio = new Audio();
+					audio.src = $scope.src;
+					$scope.playing = false;
+
+					audio.addEventListener('ended', function(event) {
+						$scope.playing = false;
+						$scope.$apply();
+					});
+
+					$scope.playpause = function(){
+						$scope.playing = !$scope.playing;
+						if ($scope.playing){
+							$rootScope.$emit('tinyplayer', audio);
+						}else{
+							audio.pause();
+						}
+					}
+
+					$rootScope.$on('tinyplayer', function(scope, aud) {
+						aud.play();
+						if (aud!= audio){
+							$scope.playing = false;
+							audio.pause();
+							audio.currentTime =0;
+						}
+					});
+				}
+			};
+		});
+	</script>
+</body>
+
+
+</html>

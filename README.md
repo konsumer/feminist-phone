@@ -1,14 +1,14 @@
 I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/), but wanted to make my own that runs on other deployment servers easier (I like heroku) and uses nodejs instead of PHP.
 
-You can call my version at (503) 427-1565.
+You can call my version at (503) 427-1565. You can see who has called/texted lately, [here](http://feminist-phone.herokuapp.com/).
 
 # support
 
-Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](bitcoin:125ZumCPPxokALadXZZTiVWmVia1KizSFv?amount=0.5&label=Feminist%20Phone) bitcoin address.
+Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](bitcoin:125ZumCPPxokALadXZZTiVWmVia1KizSFv?label=Feminist%20Phone) bitcoin address. Twilio is pretty cheap, but when more calls roll in, it will  get more expensive. I currently spend about $20 a month of my own cash.
 
 # quick start (for your own number)
 
-*  Go to [twilio](https://www.twilio.com/) and create a free number
+*  Go to [twilio](https://www.twilio.com/) and create a free number, look for your SID & TOKEN in your dashboard, and set them in your configuration (see below)
 *  Go to [heroku](https://heroku.com/) and create a free host
 *  Install [npm](http://nodejs.org/) & [heroku toolbelt](https://toolbelt.heroku.com/)
 *  `npm install` on command-line, in this directory
@@ -30,8 +30,6 @@ MONGOLAB_URI=mongodb://<SECRET>
 
 TWILIO_SID=<SECRET>
 TWILIO_TOKEN=<SECRET>
-TWILIO_NUMBER=5034271565
-TWILIO_APP=<SECRET>
 ```
 
 If you are using heroku, create the initial file, like this: `heroku config:pull --overwrite --interactive`
@@ -46,6 +44,7 @@ To push up your twilio config vars from `.env`, use `heroku config:push --overwr
 *  Feature-parity with original
 *  basic documentation
 *  log texts & calls to mongodb
+*  output incoming texts/voice for display on site
 
 Here are the features I intend to clone:
 
@@ -55,9 +54,8 @@ Here are the features I intend to clone:
 
 ## milestone 2
 
-*  output incoming texts/voice for display on site
 *  feminist chat AI for honeypotting creepers into wasting their time. Get inspiration from [here](http://www.personalityforge.com/)
 *  possibly (mildly) harass incoming texts with periodic texts/calls back
 *  good documentation
 *  multiple telephony backends (maybe some of the heroku addons for convenience)
-*  quote admin
+*  quote admin interface: so you can set the quotes easily.

@@ -20,29 +20,6 @@ app.use(logger('dev'));
 app.use(bodyParser({extended: true}));
 
 
-// fill-in records, if there are none, with some defaults
-Quote.count(function(err, count) {
-	if (!count){
-		var quotes = [
-			{"author": "bell hooks", "text": "Sometimes, people try to destroy you, precisely because they recognize your power. Not because they do not see it, but because they see it and they do not want it to exist."},
-			{"author": "bell hooks", "text": "Whenever domination is present, love is lacking."},
-			{"author": "bell hooks", "text": "If any female feels she needs anything beyond herself to legitimate and validate her existence, she is already giving away her power to be self-defining, her agency."}
-		];
-		quotes.forEach(function(q, i){
-			var quote = new Quote(q);
-			quote.save(function(er){
-				if(er){
-					console.log(er);
-					process.exit(1);
-				}
-				if (i == quotes.length-1){
-					console.log('Created ' + quotes.length + ' quotes.');
-				}
-			});
-		});
-	}
-});
-
 // check configuration
 if (!process.env.TWILIO_SID || !process.env.TWILIO_TOKEN) {
     console.log(chalk.red('Error:') + ' You need to set TWILIO_SID, & TWILIO_TOKEN environment variables. Please see README.md, under "configuration", for more info.')
@@ -142,7 +119,7 @@ app.post('/recording/:voice', function(req, res){
 // TODO: fit this better to a per-conversation style
 // TODO: limit conversations, so it's just "newest"
 app.get('/calls', function(req,res){
-	Message.find({}, function(err, results){
+	Message.find({}).sort({date: -1}).limit(30).exec(function(err, results){
 		if(err){
 			console.log(err);
 			return res.send(500, err);
