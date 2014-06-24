@@ -29,25 +29,69 @@ var client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 app.post('/sms', function(req, res){
 	Quote.random(function(err, quote){
+		if(err){
+			console.log(err);
+			return res.send(500, err);
+		}
 		
-
 		var msg = new Message({
 	        type: 'text',
-	        textMessage: req.body.Body,
 	        city: req.body.FromCity,
 	        state: req.body.FromState,
 	        country: req.body.FromCountry,
 	        number: req.body.From,
-	        response: quote['_id']
+	        response: quote['_id'],
+	        textMessage: req.body.Body
 	    });
-
-		console.log(msg);
-
+	    
 	    msg.save(function(err, model) {
 	        var twiml = new twilio.TwimlResponse().message(quote.text);
 	        res.send(twiml);
 	    });
 	});	
+});
+
+app.post('/recording', function(req, res){
+	Quote.random(function(err, quote){
+		if(err){
+			console.log(err);
+			return res.send(500, err);
+		}
+		
+		var msg = new Message({
+	        type: 'call',
+	        city: req.body.FromCity,
+	        state: req.body.FromState,
+	        country: req.body.FromCountry,
+	        number: req.body.From,
+	        response: quote['_id'],
+	        recordingUrl: req.body.RecordingUrl,
+        	recordingDuration: Number(req.body.RecordingDuration)
+	    });
+	    
+	    msg.save(function(err, model) {
+	        var twiml = new twilio.TwimlResponse().message(quote.text);
+	        res.send(twiml);
+	    });
+	});	
+});
+
+
+app.post('/voice', function(req, res){
+	Quote.random(function(err, quote){
+		if(err){
+			console.log(err);
+			return res.send(500, err);
+		}
+
+	    var twiml = new twilio.TwimlResponse();
+	    twiml.say(quote.text)
+	        .record({
+	            maxLength:120,
+	            action:'/recording'
+	        });
+	    res.send(twiml);
+	});
 });
 
 
