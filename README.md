@@ -1,4 +1,4 @@
-I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/), but wanted to make my own that runs on other deployment servers easier (I like heroku) and uses nodejs instead of PHP.
+I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/), but wanted to make my own that runs on other deployment servers easier (I like heroku) and uses nodejs instead of PHP & logs incoming calls/texts for LOLs.
 
 You can call my version at (503) 427-1565. You can see who has called/texted lately, [here](http://feminist-phone.herokuapp.com/).
 
