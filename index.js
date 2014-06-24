@@ -30,12 +30,12 @@ var client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 app.post('/sms', function(req, res){
 	Quote.random(function(err, quote){
 		var msg = new Message({
-	        sid: request.param('MessageSid'),
-	        type:'text',
-	        message:request.param('Body'),
-	        city:request.param('FromCity'),
-	        state:request.param('FromState'),
-	        country:request.param('FromCountry'),
+	        sid: req.param('MessageSid'),
+	        type: 'text',
+	        message: req.param('Body'),
+	        city: req.param('FromCity'),
+	        state: req.param('FromState'),
+	        country: req.param('FromCountry'),
 	        response: quote['_id']
 	    });
 	    msg.save(function(err, model) {
