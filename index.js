@@ -45,8 +45,14 @@ app.post('/sms', function(req, res){
 	    });
 	    
 	    msg.save(function(err, model) {
-	        var twiml = new twilio.TwimlResponse().message(quote.text);
-	        res.send(twiml);
+	    	if(err){
+				console.log(err);
+				return res.send(500, err);
+			}
+
+	        res.send(new twilio.TwimlResponse()
+	        	.message(quote.text)
+	        );
 	    });
 	});	
 });
@@ -70,8 +76,14 @@ app.post('/recording', function(req, res){
 	    });
 	    
 	    msg.save(function(err, model) {
-	        var twiml = new twilio.TwimlResponse().message(quote.text);
-	        res.send(twiml);
+	    	if(err){
+				console.log(err);
+				return res.send(500, err);
+			}
+
+			res.send(new twilio.TwimlResponse()
+	        	.hangup()
+	        );
 	    });
 	});	
 });
@@ -84,13 +96,13 @@ app.post('/voice', function(req, res){
 			return res.send(500, err);
 		}
 
-	    var twiml = new twilio.TwimlResponse();
-	    twiml.say(quote.text)
+	    res.send(new twilio.TwimlResponse()
+	    	.say(quote.text)
 	        .record({
 	            maxLength:120,
 	            action:'/recording'
-	        });
-	    res.send(twiml);
+	        })
+	    );
 	});
 });
 
