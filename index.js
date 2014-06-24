@@ -75,7 +75,7 @@ app.post('/sms', function(req, res){
 			}
 
 	        res.send(new twilio.TwimlResponse()
-	        	.message(quote.text)
+	        	.message(quote.text + ' - ' + quote.author)
 	        	.toString()
 	        );
 	    });
@@ -106,7 +106,7 @@ app.post('/voice', function(req, res){
 			}
 			
 			res.send(new twilio.TwimlResponse()
-		    	.say(quote.text, {voice:'woman'})
+		    	.say(quote.text + ' - a quote from ' + quote.author, {voice:'woman'})
 		        .record({
 		            maxLength:120,
 		            action:'/recording/' + msg['_id']
