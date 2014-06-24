@@ -27,6 +27,7 @@ MONGOLAB_URI=mongodb://<SECRET>
 TWILIO_SID=<SECRET>
 TWILIO_TOKEN=<SECRET>
 TWILIO_NUMBER=5034271565
+TWILIO_APP=<SECRET>
 ```
 
 If you are using heroku, create the initial file, like this: `heroku config:pull --overwrite --interactive`
@@ -52,6 +53,6 @@ Here are the features I intend to clone:
 
 *  output incoming texts/voice for display on site
 *  feminist chat AI for honeypotting creepers into wasting their time. Get inspiration from [here](http://www.personalityforge.com/)
-*  possibly (mildly) harass incoming texts with periodic texts back
+*  possibly (mildly) harass incoming texts with periodic texts/calls back
 *  good documentation
 *  multiple telephony backends (maybe some of the heroku addons for convenience)
