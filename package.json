@@ -1,0 +1,29 @@
+{
+  "name": "feminist-phone",
+  "version": "0.0.0",
+  "description": "Nodejs/heroku version of Feminist Phone Intervention",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/konsumer/feminist-phone.git"
+  },
+  "author": "David Konsumer <konsumer@jetboystudio.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/konsumer/feminist-phone/issues"
+  },
+  "homepage": "https://github.com/konsumer/feminist-phone",
+  "dependencies": {
+    "chalk": "^0.4.0",
+    "express": "^4.4.4",
+    "mongoose": "^3.8.12",
+    "morgan": "^1.1.1",
+    "twilio": "^1.6.0"
+  },
+  "devDependencies": {
+    "node-env-file": "^0.1.3"
+  }
+}
