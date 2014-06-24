@@ -11,6 +11,8 @@ var models = require('./models'),
 	express = require('express'),
 	logger = require('morgan'),
 	bodyParser = require('body-parser'),
+	serveStatic = require('serve-static'),
+	path = require('path'),
 	app = express();
 
 // configure basic webserver
@@ -156,6 +158,8 @@ app.get('/calls', function(req,res){
 				"country": call.country,
 				"response": call.response,
 				"textMessage": call.textMessage,
+				"recordingUrl": call.recordingUrl,
+				"recordingDuration": call.recordingDuration,
 				"date": call.date
 			};
 		}));
@@ -172,6 +176,9 @@ app.get('/quotes', function(req,res){
 		res.send(results);
 	});
 });
+
+//  static service
+app.use(serveStatic(path.join(__dirname, 'public')));
 
 
 var port = Number(process.env.PORT || 5000);

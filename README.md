@@ -1,6 +1,10 @@
-I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/), but wanted to make my own that runs on other deployment servers easier (I like heroku) and uses nodejs instead of PHP. This is a place-holder for when I have enough time to work on it.
+I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/), but wanted to make my own that runs on other deployment servers easier (I like heroku) and uses nodejs instead of PHP.
 
 You can call my version at (503) 427-1565.
+
+# support
+
+Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](bitcoin:125ZumCPPxokALadXZZTiVWmVia1KizSFv?amount=0.5&label=Feminist%20Phone) bitcoin address.
 
 # quick start (for your own number)
 
