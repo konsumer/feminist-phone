@@ -42,14 +42,15 @@ To push up your twilio config vars from `.env`, use `heroku config:push --overwr
 ## milestone 1
 
 *  Feature-parity with original
-*  basic documentation
-*  log texts & calls to mongodb
-*  output incoming texts/voice for display on site
+*  ~~basic documentation~~
+*  ~~log texts & calls to mongodb~~
+*  ~~output incoming texts/voice for display on site~~
 
 Here are the features I intend to clone:
 
-*  incoming text responds with Bell Hooks quote
-*  incoming call responds with TTS of Bell Hooks quotes or pre-recorded MP3's
+*  ~~incoming text responds with text quotes~~
+*  ~~incoming call responds with TTS of text quotes~~
+*  incoming call responds with pre-recorded MP3's
 
 
 ## milestone 2
