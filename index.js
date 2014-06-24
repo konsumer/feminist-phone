@@ -52,6 +52,7 @@ app.post('/sms', function(req, res){
 
 	        res.send(new twilio.TwimlResponse()
 	        	.message(quote.text)
+	        	.toString()
 	        );
 	    });
 	});	
@@ -84,6 +85,7 @@ app.post('/recording', function(req, res){
 			res.send(new twilio.TwimlResponse()
 				.say('goodbye.')
 	        	.hangup()
+	        	.toString()
 	        );
 	    });
 	});	
@@ -103,6 +105,7 @@ app.post('/voice', function(req, res){
 	            maxLength:120,
 	            action:'/recording'
 	        })
+	        .toString()
 	    );
 	});
 });
