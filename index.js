@@ -119,9 +119,7 @@ app.post('/recording/:voice', function(req, res){
 	});
 });
 
-// get a list of quotes, with number info removed
-// TODO: fit this better to a per-conversation style
-// TODO: limit conversations, so it's just "newest"
+// get a list of calls, with number info removed
 app.get('/calls', function(req,res){
 	Message.find({}).sort({date: -1}).limit(30).exec(function(err, results){
 		if(err){
