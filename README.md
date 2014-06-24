@@ -11,6 +11,7 @@ You can call my version at (503) 427-1565.
 *  `heroku create` on command-line, in this directory
 *  `heroku addons:add mongolab` on command-line, in this directory
 *  Edit configuration (see configuration section below)
+*  Deploy on heroku with `git push heroku master`
 
 ## configuration
 
