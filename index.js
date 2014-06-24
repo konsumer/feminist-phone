@@ -1,5 +1,9 @@
 // load config
-require('./config');
+var fs = require('fs'), path = require('path');
+if (fs.existsSync(path.join(__dirname, '.env'))) {
+    var env = require('node-env-file');
+    env('.env');
+}
 
 var models = require('./models'),
 	Message = models.Message,
