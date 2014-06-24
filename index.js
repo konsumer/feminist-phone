@@ -82,6 +82,7 @@ app.post('/recording', function(req, res){
 			}
 
 			res.send(new twilio.TwimlResponse()
+				.say('goodbye.')
 	        	.hangup()
 	        );
 	    });
