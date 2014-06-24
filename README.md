@@ -4,17 +4,17 @@ You can call my version at (503) 427-1565. You can see who has called/texted lat
 
 # support
 
-Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](bitcoin:125ZumCPPxokALadXZZTiVWmVia1KizSFv?label=Feminist%20Phone) bitcoin address. Twilio is pretty cheap, but when more calls roll in, it will  get more expensive. I currently spend about $20 a month of my own cash.
+Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](https://blockchain.info/address/125ZumCPPxokALadXZZTiVWmVia1KizSFv) bitcoin address. Twilio is pretty cheap, but when more calls roll in, it will  get more expensive. I currently spend about $20 a month of my own cash.
 
 # quick start (for your own number)
 
-*  Go to [twilio](https://www.twilio.com/) and create a free number, look for your SID & TOKEN in your dashboard, and set them in your configuration (see below)
+*  Go to [twilio](https://www.twilio.com/) and create a free number, look for your SID & TOKEN in your dashboard, and set them in your [configuration](#configuration) (see below)
 *  Go to [heroku](https://heroku.com/) and create a free host
 *  Install [npm](http://nodejs.org/) & [heroku toolbelt](https://toolbelt.heroku.com/)
 *  `npm install` on command-line, in this directory
 *  `heroku create` on command-line, in this directory
 *  `heroku addons:add mongolab` on command-line, in this directory
-*  Edit configuration (see configuration section below)
+*  Edit configuration (see [configuration](#configuration) section below)
 *  Deploy on heroku with `git push heroku master`
 
 ## configuration
