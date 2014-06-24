@@ -26,3 +26,29 @@
 .glyphicon-github:before {
 	content: "\e600";
 }
+
+.call{
+	padding:4px;
+}
+.callinfo {
+	font-size:10px;
+}
+.text {
+	font-size: 12px;
+	padding:4px;
+}
+tinyplayer {
+	display:inline-block;
+}
+tinyplayer .play, tinyplayer .pause, .text {
+	background: #ddd;
+}
+
+tinyplayer .play, tinyplayer .pause {
+	border: 1px solid #000;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	line-height: 17px;
+	text-align:center;
+}
