@@ -29,6 +29,8 @@ var client = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 app.post('/sms', function(req, res){
 	Quote.random(function(err, quote){
+		console.log(req.body);
+
 		var msg = new Message({
 	        sid: req.param('MessageSid'),
 	        type: 'text',
