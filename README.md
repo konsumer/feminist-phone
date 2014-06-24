@@ -56,3 +56,4 @@ Here are the features I intend to clone:
 *  possibly (mildly) harass incoming texts with periodic texts/calls back
 *  good documentation
 *  multiple telephony backends (maybe some of the heroku addons for convenience)
+*  quote admin
