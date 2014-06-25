@@ -118,66 +118,35 @@ app.post('/recording/:voice', function(req, res){
 	});
 });
 
-// map function for removing phone-number
-function filterPhone(message){
-	return {
-	    type: message.type,
-	    recordingUrl: message.recordingUrl,
-	    recordingDuration: message.recordingDuration,
-	    textMessage: message.textMessage,
-	    city: message.city,
-	    state: message.state,
-	    country: message.country,
-	    date: message.date,
-	    response: message.response
-	};
-}
-
-// get 30 newest messages & texts with personal phone number filtered
-function getNewMessages(cb){
-	var out = {};
-	Message.find({type:"text"})
-		.sort({date: -1})
-		.limit(30)
-		.exec(function(err, texts){
-			if (err) return cb(err);
-			out.texts = texts.map(filterPhone);
-			Message.find({type:"call"})
-				.sort({date: -1})
-				.limit(30)
-				.exec(function(err, calls){
-					if (err) return cb(err);
-					out.calls = calls.map(filterPhone);
-					return cb(null, out);
-				});
-		});
-}
-
-
 // setup socket.io for realtime data
-
 app.http().io();
 
+// when a user connects, send them messages & quotes, & send other clients user:new
+// tail the capped collections, so new records also send messages
 app.io.route('ready', function(req) {
     var socket = req.io;
     socket.broadcast('user:new');
 
-    getNewMessages(function(err, messages){
-    	if (err) return console.log(err);
-		messages.texts.forEach(function(message){
-			socket.emit('message:text', message);
+    Message.find({type:"text"})
+		.tailable()
+		.stream()
+		.on('data', function (message) {
+			socket.emit('message:text', Message.filterPhone(message));
 		});
-		messages.calls.forEach(function(message){
-			socket.emit('message:call', message);
-		});
-    });
 
-    Quote.find({}, function(err, results){
-		if(err) return console.log(err);
-		results.forEach(function(quote){
+	Message.find({type:"call"})
+		.tailable()
+		.stream()
+		.on('data', function (message) {
+			socket.emit('message:call', Message.filterPhone(message));
+		});
+
+	Quote.find({})
+		.tailable()
+		.stream()
+		.on('data', function (quote) {
 			socket.emit('quote:add', quote);
 		});
-	});
 });
 
 
@@ -193,22 +162,7 @@ app.get('/calls', function(req,res){
 			console.log(err);
 			return res.send(500, err);
 		}
-		
-		res.send(results.map(function(call){
-			return {
-				"_id": call['_id'],
-				"__v": call['__v'],
-				"type": call.type,
-				"city": call.city,
-				"state": call.state,
-				"country": call.country,
-				"response": call.response,
-				"textMessage": call.textMessage,
-				"recordingUrl": call.recordingUrl,
-				"recordingDuration": call.recordingDuration,
-				"date": call.date
-			};
-		}));
+		res.send(results.map(Message.filterPhone);
 	});
 });
 

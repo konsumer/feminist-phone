@@ -7,8 +7,9 @@ var mongoose = require('mongoose');
 var Quote = new mongoose.Schema({
 	author: String,
     text: String
-});
+}, { capped: 1024 });
 
+// get a random quote
 Quote.statics.random = function(callback) {
   this.count(function(err, count) {
     if (err) {

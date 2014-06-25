@@ -20,24 +20,34 @@
 		</div>
 	</div>
 
-	<div ng-show="texts.length" class="container">
-		Here are the texts I have received, lately:
-		<ul>
-			<li ng-repeat="call in texts" class="call">
-				<span class="text">{{call.textMessage}}</span> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span><br>
-				<span class="response">{{quotes[call.response].text}} - {{quotes[call.response].author}}</span>
-			</li>
-		</ul>
-	</div>
+	<div class="container messages">
 
-	<div ng-show="calls.length" class="container">
-		Here are the calls I have received, lately:
-		<ul>
-			<li ng-repeat="call in calls" class="call">
-				<tinyplayer src="call.recordingUrl"></tinyplayer> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span><br>
-				<span class="response">{{quotes[call.response].text}} - {{quotes[call.response].author}}</span>
-			</li>
-		</ul>
+		<div ng-show="texts.length" class="texts col-sm-6 col-xs-12">
+			<h2>texts</h2>
+			<ul>
+				<li ng-repeat="call in texts" class="call">
+					<span class="text">{{call.textMessage}}</span> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span>
+					<div class="response">
+						<blockquote>{{quotes[call.response].text}}</blockquote>
+						 - <span class="author">{{quotes[call.response].author}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div ng-show="calls.length" class="calls col-sm-6 col-xs-12">
+			<h2>calls</h2>
+			<ul>
+				<li ng-repeat="call in calls" class="call">
+					<tinyplayer src="call.recordingUrl"></tinyplayer> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span>
+					<div class="response">
+						<blockquote>{{quotes[call.response].text}}</blockquote>
+						 - <span class="author">{{quotes[call.response].author}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+
 	</div>
 
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
@@ -53,20 +63,17 @@
 
 			socket.on('message:text', function (message) {
 				$scope.texts.push(message);
+				console.log('message:text', message);
 			});
 
 			socket.on('message:call', function (message) {
 				$scope.calls.push(message);
+				console.log('message:call', message);
 			});
 
 			socket.on('quote:add', function (quote) {
 				$scope.quotes[quote['_id']] = quote;
-			});
-
-			socket.on('quote:remove', function (quote) {
-				$scope.quotes = $scope.quotes.filter(function(squote){
-					return (quote['_id'] != squote['_id']);
-				});
+				console.log('message:quote', quote);
 			});
 		})
 		
