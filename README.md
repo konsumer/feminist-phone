@@ -65,7 +65,8 @@ Here are the features I intend to clone:
 ## milestone 2
 
 *  feminist chat AI for honeypotting creepers into wasting their time. Get inspiration from [here](http://www.personalityforge.com/)
-*  possibly (mildly) harass incoming texts with periodic texts/calls back
+*  (mildly) harass incoming texts with periodic texts/calls back
 *  good documentation
 *  multiple telephony backends (maybe some of the heroku addons for convenience)
 *  quote admin interface: so you can set the quotes easily.
+*  when texts come in, send them to other people that already sent texts
