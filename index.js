@@ -56,7 +56,7 @@ app.post('/sms', function(req, res){
 				return res.send(500, err);
 			}
 
-			req.io.emit('message:text', Message.filterPhone(model));
+			app.io.broadcast('message:text', Message.filterPhone(model));
 
 	        res.send(new twilio.TwimlResponse()
 	        	.message(quote.text + ' - ' + quote.author)
@@ -111,8 +111,8 @@ app.post('/recording/:voice', function(req, res){
 			console.log(err);
 			return res.send(500, err);
 		}
-		
-		req.io.emit('message:call', Message.filterPhone(model));
+
+		app.io.broadcast('message:call', Message.filterPhone(model));
 
 		res.send(new twilio.TwimlResponse()
 			.say('goodbye.', {voice:'woman'})
