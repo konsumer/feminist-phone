@@ -1,12 +1,18 @@
-I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/), but wanted to make my own that runs on other deployment servers easier (I like heroku) and uses nodejs instead of PHP & logs incoming calls/texts for LOLs.
+# call (503) 427-1565 now!
 
-You can call my version at (503) 427-1565. You can see who has called/texted lately, [here](http://feminist-phone.herokuapp.com/).
+You can see who has called/texted lately, [here](http://feminist-phone.herokuapp.com/).
 
-You can also use this as a base for your own simple express/AngularJS/twilio telephony app.
+I really love [Feminist Phone Intervention](http://feminist-phone-intervention.tumblr.com/). Here is why I made my own:
+
+*  I like javascript better than PHP
+*  I like heroku, and I wanted it to be easier to deploy
+*  I want this to be a general framework for phone-trolling apps
+*  I wanted to make an instructional base for simple express/sockets/AngularJS/twilio telephony app,with realtime updates.
+*  I wanted to log calls & texts for maximimum LOL
 
 # support
 
-Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](https://blockchain.info/address/125ZumCPPxokALadXZZTiVWmVia1KizSFv) bitcoin address. Twilio is pretty cheap, but when more calls roll in, it will  get more expensive. I currently spend about $20 a month of my own cash.
+Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](https://blockchain.info/address/125ZumCPPxokALadXZZTiVWmVia1KizSFv) bitcoin address. Twilio is pretty cheap, but when more calls roll in, it will get more expensive. I currently spend $20 a month of my own cash, and then it will stop working that month.
 
 # quick start (for your own number)
 
