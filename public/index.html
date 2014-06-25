@@ -25,7 +25,7 @@
 		<div ng-show="texts.length" class="texts col-sm-6 col-xs-12">
 			<h2>texts</h2>
 			<ul>
-				<li ng-repeat="call in texts" class="call">
+				<li ng-repeat="call in texts | reverse" class="call">
 					<span class="text">{{call.textMessage}}</span> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span>
 					<div class="response">
 						<blockquote>{{quotes[call.response].text}}</blockquote>
@@ -38,7 +38,7 @@
 		<div ng-show="calls.length" class="calls col-sm-6 col-xs-12">
 			<h2>calls</h2>
 			<ul>
-				<li ng-repeat="call in calls" class="call">
+				<li ng-repeat="call in calls | reverse" class="call">
 					<tinyplayer src="call.recordingUrl"></tinyplayer> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span>
 					<div class="response">
 						<blockquote>{{quotes[call.response].text}}</blockquote>
@@ -142,6 +142,12 @@
 		        });
 		      })
 		    }
+		  };
+		})
+
+		.filter('reverse', function() {
+		  return function(items) {
+		    return items.slice().reverse();
 		  };
 		});
 	</script>
