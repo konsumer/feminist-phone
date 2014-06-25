@@ -70,17 +70,14 @@
 
 			socket.on('message:text', function (message) {
 				$scope.texts.push(message);
-				console.log('message:text', message);
 			});
 
 			socket.on('message:call', function (message) {
 				$scope.calls.push(message);
-				console.log('message:call', message);
 			});
 
 			socket.on('quote:add', function (quote) {
 				$scope.quotes[quote['_id']] = quote;
-				console.log('message:quote', quote);
 			});
 		})
 		
