@@ -16,6 +16,7 @@ Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](
 *  `npm install` on command-line, in this directory
 *  `heroku create` on command-line, in this directory
 *  `heroku addons:add mongolab` on command-line, in this directory
+*  `heroku labs:enable websockets` on command-line, in this directory
 *  Edit configuration (see [configuration](#configuration) section below)
 *  Deploy on heroku with `git push heroku master`
 
