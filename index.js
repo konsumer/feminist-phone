@@ -56,6 +56,8 @@ app.post('/sms', function(req, res){
 				return res.send(500, err);
 			}
 
+			req.io.emit('message:text', Message.filterPhone(model));
+
 	        res.send(new twilio.TwimlResponse()
 	        	.message(quote.text + ' - ' + quote.author)
 	        	.toString()
@@ -109,6 +111,8 @@ app.post('/recording/:voice', function(req, res){
 			console.log(err);
 			return res.send(500, err);
 		}
+		
+		req.io.emit('message:call', Message.filterPhone(model));
 
 		res.send(new twilio.TwimlResponse()
 			.say('goodbye.', {voice:'woman'})
@@ -127,58 +131,21 @@ app.io.route('ready', function(req) {
     var socket = req.io;
     socket.broadcast('user:new');
 
-    Message.find({type:"text"})
-		.tailable()
-		.stream()
+    Message.find({type:"text"}).stream()
 		.on('data', function (message) {
 			socket.emit('message:text', Message.filterPhone(message));
 		});
 
-	Message.find({type:"call"})
-		.tailable()
-		.stream()
+	Message.find({type:"call"}).stream()
 		.on('data', function (message) {
 			socket.emit('message:call', Message.filterPhone(message));
 		});
 
-	Quote.find({})
-		.tailable()
-		.stream()
+	Quote.find({}).stream()
 		.on('data', function (quote) {
 			socket.emit('quote:add', quote);
 		});
 });
-
-
-/*
-
-// If you want JSON service for this info, rather than socket.io realtime updates, use these:
-
-
-// get a list of calls, with number info removed
-app.get('/calls', function(req,res){
-	Message.find({}).sort({date: -1}).limit(30).exec(function(err, results){
-		if(err){
-			console.log(err);
-			return res.send(500, err);
-		}
-		res.send(results.map(Message.filterPhone);
-	});
-});
-
-// get list of quotes
-app.get('/quotes', function(req,res){
-	Quote.find({}, function(err, results){
-		if(err){
-			console.log(err);
-			return res.send(500, err);
-		}
-		res.send(results);
-	});
-});
-
- */
-
 
 
 //  static service

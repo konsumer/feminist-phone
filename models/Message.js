@@ -15,11 +15,10 @@ var Message = new mongoose.Schema({
     country: String,
     date:{ type: Date, default: Date.now },
     response: String
-}, { capped: 1024 });
+});
 
 // filter phone number for privacy
 Message.statics.filterPhone = function (message){
-    console.log(message);
     return {
         type: message.type,
         recordingUrl: message.recordingUrl,
