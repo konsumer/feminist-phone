@@ -3,10 +3,13 @@
 	<title>Feminist Phone</title>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 	<link href="style.css" rel="stylesheet">
+	
 	<!--[if lt IE 8]><!-->
 	<script src="ie7/ie7.js"></script>
 	<link href="ie7/ie7.css" rel="stylesheet">
 	<!--<![endif]-->
+
+	<script src="/socket.io/socket.io.js"></script>
 </head>
 <body ng-app="app" ng-controller="FeministPhone">
 	<div class="jumbotron">
@@ -22,7 +25,7 @@
 		<ul>
 			<li ng-repeat="call in texts" class="call">
 				<span class="text">{{call.textMessage}}</span> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span><br>
-				<span class="response">{{quotes[call.response]}}</span>
+				<span class="response">{{quotes[call.response].text}} - {{quotes[call.response].author}}</span>
 			</li>
 		</ul>
 	</div>
@@ -32,7 +35,7 @@
 		<ul>
 			<li ng-repeat="call in calls" class="call">
 				<tinyplayer src="call.recordingUrl"></tinyplayer> - <span class="callinfo">{{call.date | date : 'short'}} - {{call.city}}, {{call.state}} {{call.country}}</span><br>
-				<span class="response">{{quotes[call.response]}}</span>
+				<span class="response">{{quotes[call.response].text}} - {{quotes[call.response].author}}</span>
 			</li>
 		</ul>
 	</div>
@@ -41,26 +44,30 @@
 	<script>
 		angular.module('app',[])
 		
-		.controller('FeministPhone', function ($scope, $http) {
+		.controller('FeministPhone', function ($scope, $http, socket) {
 			$scope.calls = [];
 			$scope.texts = [];
+			$scope.quotes = {};
 
-			// get available quotes
-			$http.get('/quotes')
-				.success(function(records){
-					$scope.quotes={};
-					records.forEach(function(record){
-						$scope.quotes[record['_id']] = record.text + ' - ' + record.author;
-					});
-				});
+			socket.emit('ready');
 
-			// get list of calls
-			$http.get('/calls')
-				.success(function(records){
-					records.forEach(function(record){
-						$scope[record.type + 's'].push(record);
-					});
+			socket.on('message:text', function (message) {
+				$scope.texts.push(message);
+			});
+
+			socket.on('message:call', function (message) {
+				$scope.calls.push(message);
+			});
+
+			socket.on('quote:add', function (quote) {
+				$scope.quotes[quote['_id']] = quote;
+			});
+
+			socket.on('quote:remove', function (quote) {
+				$scope.quotes = $scope.quotes.filter(function(squote){
+					return (quote['_id'] != squote['_id']);
 				});
+			});
 		})
 		
 		/**
@@ -104,6 +111,31 @@
 					});
 				}
 			};
+		})
+
+		// interact with socket.io for realtime updates
+		.factory('socket', function ($rootScope) {
+		  var socket = io.connect();
+		  return {
+		    on: function (eventName, callback) {
+		      socket.on(eventName, function () {  
+		        var args = arguments;
+		        $rootScope.$apply(function () {
+		          callback.apply(socket, args);
+		        });
+		      });
+		    },
+		    emit: function (eventName, data, callback) {
+		      socket.emit(eventName, data, function () {
+		        var args = arguments;
+		        $rootScope.$apply(function () {
+		          if (callback) {
+		            callback.apply(socket, args);
+		          }
+		        });
+		      })
+		    }
+		  };
 		});
 	</script>
 </body>

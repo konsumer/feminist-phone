@@ -8,11 +8,10 @@ if (fs.existsSync(path.join(__dirname, '.env'))) {
 var models = require('./models'),
 	Message = models.Message,
 	Quote = models.Quote,
-	express = require('express'),
 	chalk = require('chalk'),
 	logger = require('morgan'),
 	twilio = require('twilio'),
-	express = require('express'),
+	express = require('express.io'),
 	logger = require('morgan'),
 	bodyParser = require('body-parser'),
 	serveStatic = require('serve-static'),
@@ -119,6 +118,74 @@ app.post('/recording/:voice', function(req, res){
 	});
 });
 
+// map function for removing phone-number
+function filterPhone(message){
+	return {
+	    type: message.type,
+	    recordingUrl: message.recordingUrl,
+	    recordingDuration: message.recordingDuration,
+	    textMessage: message.textMessage,
+	    city: message.city,
+	    state: message.state,
+	    country: message.country,
+	    date: message.date,
+	    response: message.response
+	};
+}
+
+// get 30 newest messages & texts with personal phone number filtered
+function getNewMessages(cb){
+	var out = {};
+	Message.find({type:"text"})
+		.sort({date: -1})
+		.limit(30)
+		.exec(function(err, texts){
+			if (err) return cb(err);
+			out.texts = texts.map(filterPhone);
+			Message.find({type:"call"})
+				.sort({date: -1})
+				.limit(30)
+				.exec(function(err, calls){
+					if (err) return cb(err);
+					out.calls = calls.map(filterPhone);
+					return cb(null, out);
+				});
+		});
+}
+
+
+// setup socket.io for realtime data
+
+app.http().io();
+
+app.io.route('ready', function(req) {
+    var socket = req.io;
+    socket.broadcast('user:new');
+
+    getNewMessages(function(err, messages){
+    	if (err) return console.log(err);
+		messages.texts.forEach(function(message){
+			socket.emit('message:text', message);
+		});
+		messages.calls.forEach(function(message){
+			socket.emit('message:call', message);
+		});
+    });
+
+    Quote.find({}, function(err, results){
+		if(err) return console.log(err);
+		results.forEach(function(quote){
+			socket.emit('quote:add', quote);
+		});
+	});
+});
+
+
+/*
+
+// If you want JSON service for this info, rather than socket.io realtime updates, use these:
+
+
 // get a list of calls, with number info removed
 app.get('/calls', function(req,res){
 	Message.find({}).sort({date: -1}).limit(30).exec(function(err, results){
@@ -156,11 +223,15 @@ app.get('/quotes', function(req,res){
 	});
 });
 
+ */
+
+
+
 //  static service
 app.use(serveStatic(path.join(__dirname, 'public')));
 
 
 var port = Number(process.env.PORT || 5000);
-app.listen(port, function() {
+var server = app.listen(port, function() {
     console.log('Listening on ' + chalk.underline(chalk.blue('http://0.0.0.0:' + port)));
 });
