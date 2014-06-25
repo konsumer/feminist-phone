@@ -51,4 +51,12 @@ tinyplayer .play, tinyplayer .pause {
 	height: 20px;
 	line-height: 17px;
 	text-align:center;
+
+	/* disable select */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
