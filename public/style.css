@@ -27,6 +27,14 @@
 	content: "\e600";
 }
 
+footer {
+	text-align:center;
+}
+
+footer a {
+	margin-right: 20px;
+}
+
 ul {
 	padding-left: 2px;
 }
