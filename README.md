@@ -16,19 +16,12 @@ Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](
 
 # quick start (for your own number)
 
-*  Go to [twilio](https://www.twilio.com/) and create a free number, look for your SID & TOKEN in your dashboard, and set them in your [configuration](#configuration) (see below)
-*  Go to [heroku](https://heroku.com/) and create a free host
-*  Install [npm](http://nodejs.org/) & [heroku toolbelt](https://toolbelt.heroku.com/)
-*  `npm install` on command-line, in this directory
-*  `heroku create` on command-line, in this directory
-*  `heroku addons:add mongolab` on command-line, in this directory
-*  `heroku labs:enable websockets` on command-line, in this directory
-*  Edit configuration (see [configuration](#configuration) section below)
-*  Deploy on heroku with `git push heroku master`
+*  [get a Twilio account](https://www.twilio.com/), not your API key & secret from [your dashboard](https://www.twilio.com/user/account) (at top)
+*  [click here](https://heroku.com/deploy?template=https://github.com/konsumer/feminist-phone) to create a heroku machine. Fill in your Twilio API info.
 
 ## configuration
 
-The app is configured with environment variables. You can edit a file `.env`, or use heroku environment vars (in settings.)
+The app is configured with environment variables. You can edit a file `.env`, or use heroku environment vars (in settings.) If you don;t use the easy method above, you will have to mess with this stuff.
 
 ### .env
 
@@ -40,10 +33,6 @@ MONGOLAB_URI=mongodb://<SECRET>
 TWILIO_SID=<SECRET>
 TWILIO_TOKEN=<SECRET>
 ```
-
-If you are using heroku, create the initial file, like this: `heroku config:pull --overwrite --interactive`
-
-To push up your twilio config vars from `.env`, use `heroku config:push --overwrite --interactive`
 
 
 # development
