@@ -21,7 +21,7 @@ Help pay for the phone-line by donating to [125ZumCPPxokALadXZZTiVWmVia1KizSFv](
 
 ## configuration
 
-The app is configured with environment variables. You can edit a file `.env`, or use heroku environment vars (in settings.) If you don;t use the easy method above, you will have to mess with this stuff.
+The app is configured with environment variables. You can edit a file `.env`, or use heroku environment vars (in settings.) If you don't use the super-easy method above, you will have to mess with this stuff.
 
 ### .env
 
