@@ -40,15 +40,15 @@ TWILIO_TOKEN=<SECRET>
 ## milestone 1
 
 *  Feature-parity with original
-*  ~~basic documentation~~
-*  ~~log texts & calls to mongodb~~
-*  ~~output incoming texts/voice for display on site~~
+*  [X] basic documentation
+*  [X] log texts & calls to mongodb
+*  [X] output incoming texts/voice for display on site
 
 Here are the features I intend to clone:
 
-*  ~~incoming text responds with text quotes~~
-*  ~~incoming call responds with TTS of text quotes~~
-*  incoming call responds with pre-recorded MP3's
+*  [X] incoming text responds with text quotes
+*  [X] incoming call responds with TTS of text quotes
+*  [ ] incoming call responds with pre-recorded MP3's
 
 
 ## milestone 2
@@ -59,3 +59,4 @@ Here are the features I intend to clone:
 *  multiple telephony backends (maybe some of the heroku addons for convenience)
 *  quote admin interface: so you can set the quotes easily.
 *  when texts come in, send them to other people that already sent texts
+*  option to store voicemails on S3 when they come in, so they don't disappear
