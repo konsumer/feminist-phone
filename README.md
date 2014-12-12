@@ -6,6 +6,7 @@ I really love [Feminist Phone Intervention](http://feminist-phone-intervention.t
 
 *  I like javascript better than PHP
 *  I like heroku, and I wanted it to be easier to deploy
+*  I wanted realtime updates when people call/text
 *  I want this to be a general framework for phone-trolling apps
 *  I wanted to make an instructional base for simple express/sockets/AngularJS/twilio telephony app, with realtime updates.
 *  I wanted to log calls & texts for maximimum LOL
